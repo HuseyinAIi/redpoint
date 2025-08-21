@@ -1,1 +1,19 @@
-<?php $title='Home'; include __DIR__ . '/includes/header.php'; ?> <style> .hero-video { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #fff; } .hero-video .video-bg { position: absolute; inset: 0; z-index: 0; } .hero-video .video-bg video { width: 100%; height: 100%; object-fit: cover; } .hero-video::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.5)); } .hero-video .hero-content { position: relative; z-index: 2; text-align: center; padding: 3rem 1rem; } .hero-video .hero-content h1 { margin: 0 0 .5rem; font-size: clamp(28px, 5vw, 54px); font-weight: 700; letter-spacing: .5px; } .hero-video .hero-content p { margin: 0 0 1.25rem; font-size: clamp(14px, 2.2vw, 18px); opacity: .95; } .hero-video .hero-cta { display: inline-flex; gap: .75rem; flex-wrap: wrap; justify-content: center; } .feature-video { padding: 48px 16px 64px; background: #000; color: #fff; } .feature-video .wrap { max-width: 1100px; margin: 0 auto; } .feature-video h2 { text-align: center; margin: 0 0 12px; font-size: clamp(22px, 4vw, 34px); font-weight: 700; } .feature-video p { text-align: center; margin: 0 auto 24px; max-width: 800px; color: #cfcfcf; font-size: 16px; line-height: 1.6; } .feature-video .video-frame { position: relative; width: 100%; max-width: 900px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,.45); background: #111; } .feature-video .video-frame video { display: block; width: 100%; height: auto; } section.container.grid { padding-top: 32px; padding-bottom: 32px; } </style> <section class="hero hero-video"> <div class="video-bg"> <video autoplay muted loop playsinline preload="auto"> <source src="https://www.denimrepublic.com.tr/files/WhatsAppVideo2025-02-18saat09.29.38_1313fe16.mp4" type="video/mp4"> Your browser does not support HTML5 video. </video> </div> <div class="hero-content"> <h1>Quality Denim & Apparel</h1> <p>Modern cuts. Clean lines. Utility-first design.</p> <div class="hero-cta"> <a href="/category.php?slug=denim" class="btn">Explore Denim</a> <a href="/category.php?slug=t-shirts" class="btn ghost">View T-Shirts</a> </div> </div> </section> <section class="container grid"> <?php $cats = db()->query('SELECT name, slug FROM categories ORDER BY id')->fetchAll(PDO::FETCH_ASSOC); foreach ($cats as $c) { echo '<a class="card" href="/category.php?slug='.esc($c['slug']).'"> <div class="card-media placeholder" data-slug="'.esc($c['slug']).'"></div> <div class="card-body"> <h3>'.esc($c['name']).'</h3> <p>Browse '.esc($c['name']).' collection</p> </div> </a>'; } ?> </section> <section class="feature-video"> <div class="wrap"> <h2>Miss Republic</h2> <p>Modern, şık ve rahat tasarımlar.</p> <div class="video-frame"> <video controls playsinline preload="metadata"> <source src="https://www.denimrepublic.com.tr/files/WhatsAppVideo2025-02-18saat09.29.40_2292881f.mp4" type="video/mp4"> Your browser does not support HTML5 video. </video> </div> </div> </section> <?php include __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../config.php'; require_login(); ?>
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head><body>
+<header class="topbar"><div class="container">
+  <div class="logo">Admin</div>
+  <nav class="nav">
+    <a href="/admin/products.php">Ürünler</a>
+    <a href="/admin/categories.php">Kategoriler</a>
+    <a href="/admin/logout.php">Çıkış</a>
+  </nav>
+</div></header>
+<main class="container" style="padding:24px 0">
+  <h1>Hoş geldiniz, <?php echo esc($_SESSION['username']); ?></h1>
+  <p class="muted">Soldaki menüden içerik yönetimi yapabilirsiniz.</p>
+</main>
+</body></html>
